@@ -15,17 +15,20 @@ io.on('connection', (socket)=>{
     console.log('New user connected');
 
     //create event
-    socket.emit('newEmail', {
-        from: 'mike@gmail.com',
-        text: "how u doin?",
-        createdAt: 124
-    });
+
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
+    })
+
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New User joined!',
+        createdAt: new Date().getTime()
+    })
 
     //event listener
-    // socket.on('createEmail', (newEmail)=>{
-    //     console.log('Create email', newEmail);
-    // })
-
     socket.on('createMessage', (newMsg)=>{
         console.log('Create msg', newMsg);
         //emits to everyone
@@ -34,7 +37,14 @@ io.on('connection', (socket)=>{
             text: newMsg.text,
             createdAt: new Date().getTime()
         })
-    })
+
+        //better way
+        // socket.broadcast.emit('newMsg', {
+        //     from: newMsg.from,
+        //     text: newMsg.text,
+        //     createdAt: new Date().getTime()
+        // });
+    });
     socket.on('disconnect', ()=>{
         console.log('Disconnected');
     })
