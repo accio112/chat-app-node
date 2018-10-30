@@ -3,15 +3,15 @@ var socket = io();//req from client to server to make a connection and keep it o
 socket.on('connect', function(){
     console.log('connected to server');
 
-    socket.emit('createEmail', {
-        to:'divi@gmail.com',
-        text: "doing just good"
-    })
+    // socket.emit('createEmail', {
+    //     to:'divi@gmail.com',
+    //     text: "doing just good"
+    // })
 
-    socket.emit('createMessage', {
-        to:'divi@gmail.com',
-        text: "new message creation"
-    })
+    // socket.emit('createMessage', {
+    //     to:'divi@gmail.com',
+    //     text: "new message creation"
+    // })
 });
 
 socket.on('disconnect', function(){

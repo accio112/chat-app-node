@@ -21,19 +21,19 @@ io.on('connection', (socket)=>{
         createdAt: 124
     });
 
-    socket.emit('newMessage', {
-        from: 'divya',
-        text: 'blah',
-        createdAt: 123
-    })
-
     //event listener
-    socket.on('createEmail', (newEmail)=>{
-        console.log('Create email', newEmail);
-    })
+    // socket.on('createEmail', (newEmail)=>{
+    //     console.log('Create email', newEmail);
+    // })
 
     socket.on('createMessage', (newMsg)=>{
         console.log('Create msg', newMsg);
+        //emits to everyone
+        io.emit('newMessage', {
+            from: newMsg.from,
+            text: newMsg.text,
+            createdAt: new Date().getTime()
+        })
     })
     socket.on('disconnect', ()=>{
         console.log('Disconnected');
