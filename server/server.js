@@ -21,11 +21,11 @@ io.on('connection', (socket)=>{
     socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
 
     //event listener
-    socket.on('createMessage', (newMsg)=>{
+    socket.on('createMessage', (newMsg , callback)=>{
         console.log('Create msg', newMsg);
         //emits to everyone
         io.emit('newMessage', generateMessage(newMsg.from, newMsg.text ));
-
+        callback('This is from the server'); //sends acknowledgment to client
         //better way
         // socket.broadcast.emit('newMsg', {
         //     from: newMsg.from,
